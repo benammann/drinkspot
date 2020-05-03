@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/benammann/drinkspot-core/api/app/controller"
 	"github.com/benammann/drinkspot-core/api/memory"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
@@ -30,6 +31,8 @@ func NewRouter(env *memory.Environment) *Router {
 		// holds the port. Format :$PORT
 		port: fmt.Sprintf(":%s", os.Getenv("API_PORT")),
 	}
+
+	instance.engine.Use(cors.Default())
 
 	// sets up the middleware
 	middleware(instance)

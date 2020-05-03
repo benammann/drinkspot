@@ -110,7 +110,7 @@ func (u *User) Authenticate(currentPassword string) (string, error) {
 func (u *User) GenerateJWTToken() (string, error) {
 
 	// creates the jwt token expiration time
-	expirationTime := time.Now().Add(60 * time.Minute)
+	expirationTime := time.Now().Add(1 * time.Minute)
 
 	// generates the token claims
 	claims := &UserJWTClaims{
