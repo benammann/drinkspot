@@ -2,6 +2,7 @@ package graphql
 
 import (
 	api_current_user "github.com/benammann/drinkspot-core/api/graphql/resources/api-current-user"
+	api_drink_spot "github.com/benammann/drinkspot-core/api/graphql/resources/api-drink-spot"
 	"github.com/benammann/drinkspot-core/api/graphql/resources/api-version"
 	"github.com/graph-gophers/graphql-go"
 	"strings"
@@ -10,13 +11,15 @@ import (
 type Resolver struct{}
 
 var Schema = `
+
+	type Query {}
+	type Mutation {}
+
 	schema {
 		query: Query
 		mutation: Mutation
 	}
 
-	type Query {}
-	type Mutation {}
 `
 
 func BuildSchemaDefinition() string {
@@ -29,6 +32,7 @@ func BuildSchemaDefinition() string {
 		// then all the modules
 		api_current_user.Schema,
 		api_version.Schema,
+		api_drink_spot.Schema,
 	}
 
 	return strings.Join(resources[:], "")

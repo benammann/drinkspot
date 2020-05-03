@@ -6,10 +6,7 @@ import (
 )
 
 func graphQLEndpoint(router *Router) {
-
 	graphQlGroup := router.engine.Group("/graphql")
 	graphQlGroup.Use(middleware2.AuthenticateUser)
-
-	graphQlGroup.POST("/", graphql.HttpHandler)
-
+	graphQlGroup.POST("", graphql.HttpHandler)
 }

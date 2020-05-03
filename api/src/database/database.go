@@ -48,4 +48,5 @@ func (db *Database) initialize() {
 // auto migrates all the model
 func (db *Database) migrateModels() {
 	db.Connection.AutoMigrate(&model.User{})
+	db.Connection.AutoMigrate(&model.DrinkSpot{})
 }

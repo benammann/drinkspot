@@ -31,6 +31,9 @@ func HttpHandler(c *gin.Context) {
 	}
 
 	c.Writer.Header().Set("Content-Type", "application/json")
+	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Headers", "*")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,PATCH,OPTIONS")
 	c.Writer.Write(responseJSON)
 
 }

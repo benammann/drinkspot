@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/benammann/drinkspot-core/api/app/controller"
 	"github.com/benammann/drinkspot-core/api/memory"
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"os"
@@ -14,6 +13,23 @@ type Router struct {
 	env    *memory.Environment
 	engine *gin.Engine
 	port   string
+}
+
+func cORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(200)
+		} else {
+			c.Next()
+		}
+	}
 }
 
 // Creates a new router instance
@@ -32,7 +48,7 @@ func NewRouter(env *memory.Environment) *Router {
 		port: fmt.Sprintf(":%s", os.Getenv("API_PORT")),
 	}
 
-	instance.engine.Use(cors.Default())
+	instance.engine.Use(cORSMiddleware())
 
 	// sets up the middleware
 	middleware(instance)

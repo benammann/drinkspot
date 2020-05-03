@@ -18,3 +18,8 @@ func GinRichQuery(localCtx context.Context, resolver func(ctx *gin.Context) (int
 	ginContext := GetGinContext(localCtx)
 	return resolver(ginContext)
 }
+
+func GinRichQueryWithArgs(localCtx context.Context, localArgs interface{}, resolver func(ctx *gin.Context, args interface{}) (interface{}, error)) (interface{}, error) {
+	ginContext := GetGinContext(localCtx)
+	return resolver(ginContext, localArgs)
+}
